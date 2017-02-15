@@ -1,10 +1,16 @@
 ---
 # ansible-playbook var_in_command.yml --extra-vars "hosts=web user=root"
+# ansible-playbook var_in_command.yml --extra-vars "hosts=web user=root test_name='overwrite_in_command'"
 # ansible-playbook var_in_command.yml --extra-vars "@vars.json"
 # ansible-playbook var_in_command.yml --extra-vars "{'hosts':'vm-rhel7-1', 'user':'root'}"
+
 - hosts: '{{ hosts }}'
   remote_user: '{{ user }}'
+
+  vars:
+    test_name: "Value in playbook file"
 
   tasks:
      - debug: msg="{{ hosts }}"
      - debug: msg="{{ user }}"
+     - debug: msg="{{ test_name }}"
